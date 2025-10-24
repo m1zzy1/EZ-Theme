@@ -153,7 +153,7 @@ export const SECURITY_CONFIG = mergeDeep(DEFAULT_SECURITY_CONFIG, getConfig('SEC
 
 // 授权的前端域名列表
 const DEFAULT_AUTHORIZED_DOMAINS = [
-    'panghu.com',
+    'github.com',
     // 在此处添加您授权的其他域名
 ];
 
@@ -165,7 +165,7 @@ export const AUTHORIZED_DOMAINS = getConfig('AUTHORIZED_DOMAINS', DEFAULT_AUTHOR
  */
 const DEFAULT_CAPTCHA_CONFIG = {
     // 验证方式: 'google' 或 'cloudflare'
-    captchaType: 'google',
+    captchaType: 'cloudflare',
 
     // Google reCAPTCHA 配置 默认v2
     google: {

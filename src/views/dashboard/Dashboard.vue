@@ -570,55 +570,39 @@
         </template>
       </div>
 
-      <!-- 官方客户端下载区域 -->
+      <!-- 客户端下载区域 -->
       <div class="dashboard-card download-card" :class="{'card-animate': !loading.userInfo}"
-           v-if="clientConfig.showDownloadCard" style="animation-delay: 0.9s">
+           v-if="clientConfig.showDownloadCard && showClientCategoryCard" style="animation-delay: 0.9s">
         <div class="card-header">
-          <h2 class="card-title">{{ $t('dashboard.officialClients') }}</h2>
+          <h2 class="card-title">{{ $t('dashboard.clientDownloads') }}</h2>
         </div>
         <div class="card-body">
           <div class="download-options">
-            <div class="download-option" v-if="clientConfig.showIOS" @click="downloadClient('ios')">
-              <div class="option-icon ios">
-                <IconBrandApple :size="32"/>
+            <button
+                v-if="hasOfficialClientDownload"
+                type="button"
+                class="download-option category-option"
+                @click="openOfficialClient"
+            >
+              <div class="option-icon official">
+                <IconDeviceDesktop :size="32"/>
               </div>
-              <div class="option-name">iOS</div>
-            </div>
+              <div class="option-name">{{ $t('dashboard.officialClients') }}</div>
+              <div class="option-desc">{{ $t('dashboard.openDownloadLink') }}</div>
+            </button>
 
-            <div class="download-option" v-if="clientConfig.showAndroid" @click="downloadClient('android')">
-              <div class="option-icon android">
-                <IconBrandAndroid :size="32"/>
+            <button
+                v-if="hasThirdPartyClientEntry"
+                type="button"
+                class="download-option category-option"
+                @click="openThirdPartyClients"
+            >
+              <div class="option-icon third-party">
+                <IconShare :size="32"/>
               </div>
-              <div class="option-name">Android</div>
-            </div>
-
-            <div class="download-option" v-if="clientConfig.showMacOS" @click="downloadClient('macos')">
-              <div class="option-icon macos">
-                <IconBrandFinder :size="32"/>
-              </div>
-              <div class="option-name">MacOS</div>
-            </div>
-
-            <div class="download-option" v-if="clientConfig.showWindows" @click="downloadClient('windows')">
-              <div class="option-icon windows">
-                <IconBrandWindows :size="32"/>
-              </div>
-              <div class="option-name">Windows</div>
-            </div>
-
-            <div class="download-option" v-if="clientConfig.showLinux" @click="downloadClient('linux')">
-              <div class="option-icon linux">
-                <IconBrandDebian :size="32"/>
-              </div>
-              <div class="option-name">Linux</div>
-            </div>
-
-            <div class="download-option" v-if="clientConfig.showOpenWrt" @click="downloadClient('openwrt')">
-              <div class="option-icon openwrt">
-                <IconRouter :size="32"/>
-              </div>
-              <div class="option-name">OpenWrt</div>
-            </div>
+              <div class="option-name">{{ $t('dashboard.thirdPartyClients') }}</div>
+              <div class="option-desc">{{ $t('dashboard.openDownloadLink') }}</div>
+            </button>
           </div>
         </div>
       </div>
@@ -983,11 +967,32 @@ export default {
       router.push('/docs');
     };
 
-    const downloadClient = (platform) => {
-      const downloadUrl = clientConfig.clientLinks[platform];
+    const openClientDownloadLink = (downloadUrl) => {
       if (downloadUrl) {
         window.open(downloadUrl, '_blank');
       }
+    };
+
+    const hasOfficialClientDownload = computed(() => {
+      return !!clientConfig.officialClient?.enabled && !!clientConfig.officialClient?.downloadUrl;
+    });
+
+    const hasThirdPartyClientEntry = computed(() => {
+      return !!clientConfig.thirdPartyClient?.enabled && !!clientConfig.thirdPartyClient?.downloadUrl;
+    });
+
+    const showClientCategoryCard = computed(() => {
+      return hasOfficialClientDownload.value || hasThirdPartyClientEntry.value;
+    });
+
+    const openOfficialClient = () => {
+      if (!hasOfficialClientDownload.value) return;
+      openClientDownloadLink(clientConfig.officialClient.downloadUrl);
+    };
+
+    const openThirdPartyClients = () => {
+      if (!hasThirdPartyClientEntry.value) return;
+      openClientDownloadLink(clientConfig.thirdPartyClient.downloadUrl);
     };
 
     const goToShop = () => {
@@ -1873,7 +1878,12 @@ export default {
       languageChangedSignal,
       goToShop,
       openDocumentation,
-      downloadClient,
+      openClientDownloadLink,
+      openOfficialClient,
+      openThirdPartyClients,
+      hasOfficialClientDownload,
+      hasThirdPartyClientEntry,
+      showClientCategoryCard,
       hasPendingItems,
       router,
       currentNoticeIndex,
@@ -2240,17 +2250,22 @@ export default {
 
 
   .download-card {
+    .card-header {
+      justify-content: center;
+
+      .card-title {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
     .download-options {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      grid-template-columns: 1fr;
       gap: 20px;
 
       @media (min-width: 768px) {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      @media (min-width: 992px) {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .download-option {
@@ -2262,10 +2277,20 @@ export default {
         border-radius: 10px;
         transition: all 0.3s ease;
         border: 1px solid var(--border-color);
+        background: transparent;
 
         &:hover {
           background-color: rgba(var(--theme-color-rgb), 0.05);
           transform: translateY(-2px);
+        }
+
+        &.category-option {
+          width: 100%;
+          max-width: 360px;
+          justify-self: center;
+          align-items: center;
+          text-align: center;
+          padding: 20px;
         }
 
         .option-icon {
@@ -2306,11 +2331,27 @@ export default {
             background-color: rgba(0, 136, 204, 0.1);
             color: #0088cc;
           }
+
+          &.official {
+            background-color: rgba(53, 92, 194, 0.12);
+            color: #355cc2;
+          }
+
+          &.third-party {
+            background-color: rgba(29, 185, 84, 0.12);
+            color: #1db954;
+          }
         }
 
         .option-name {
           font-size: 14px;
-          font-weight: 500;
+          font-weight: 600;
+        }
+
+        .option-desc {
+          margin-top: 6px;
+          font-size: 13px;
+          color: var(--secondary-text-color);
         }
       }
     }

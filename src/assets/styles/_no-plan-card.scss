@@ -59,7 +59,7 @@
   box-shadow: 0 6px 12px rgba(255, 152, 0, 0.1);
   flex-shrink: 0;
   transform: rotate(-5deg);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* DocDetail 的 v-html 中图标为空，使用 emoji 兜底；Dashboard 内含 SVG 时不匹配 :empty */
@@ -97,7 +97,7 @@
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .action-button.primary {

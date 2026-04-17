@@ -7,10 +7,7 @@
     <link rel="icon" href="./images/logo.png">
     <!-- 设置初始标题 -->
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <!-- 预加载字体 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 已移除外部字体，避免首屏阻塞 -->
     <%= typeof injectCustomScript !== 'undefined' ? injectCustomScript : '' %>
 
     <!-- 全局样式 -->
@@ -77,6 +74,6 @@
 <div id="app"></div>
 <!-- built files will be auto injected -->
 <!-- 隐蔽版本号 若不想显示版本号 请注释下方 div 标签-->
-<div class="app-version">v0.3.8</div>
+<div class="app-version">🌟</div>
 </body>
 </html>

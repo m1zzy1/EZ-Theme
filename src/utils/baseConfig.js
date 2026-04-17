@@ -335,6 +335,16 @@ const DEFAULT_CLIENT_CONFIG = {
     // 整个下载卡片显示控制 TODO
     showDownloadCard: false,  // 设置为false将隐藏整个客户端下载卡片
 
+    // 客户端入口控制
+    officialClient: {
+        enabled: false,
+        downloadUrl: 'https://github.com/xxx/releases/latest'
+    },
+    thirdPartyClient: {
+        enabled: false,
+        downloadUrl: 'https://docs.example.com/clients'
+    },
+
     // 平台显示控制 (true=显示, false=隐藏)
     showIOS: false,         // iOS客户端显示控制
     showAndroid: false,     // Android客户端显示控制
@@ -396,6 +406,12 @@ const DEFAULT_CLIENT_CONFIG = {
 };
 
 export const CLIENT_CONFIG = mergeDeep(DEFAULT_CLIENT_CONFIG, getConfig('CLIENT_CONFIG'));
+
+const DEFAULT_MAIN_BACKGROUND_CONFIG = {
+    mode: 'light'
+};
+
+export const MAIN_BACKGROUND_CONFIG = mergeDeep(DEFAULT_MAIN_BACKGROUND_CONFIG, getConfig('MAIN_BACKGROUND_CONFIG'));
 
 /**
  * 商店页面配置

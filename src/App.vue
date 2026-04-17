@@ -100,10 +100,10 @@ import 'nprogress/nprogress.css';
 import pageCache from '@/utils/pageCache';
 
 NProgress.configure({ 
-  showSpinner: true,   
+  showSpinner: false,  // 关闭旋转图标，减少路由切换时的 GPU 合成层
   easing: 'ease',      
-  speed: 400,          
-  minimum: 0.2         
+  speed: 300,          
+  minimum: 0.15        
 });
 
 export default {

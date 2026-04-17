@@ -92,11 +92,26 @@ module.exports = defineConfig({
     if (isProd) {
       config.optimization = {
         ...config.optimization,
+        runtimeChunk: "single",
         splitChunks: {
           chunks: "all",
+          minSize: 20 * 1024,
+          maxSize: 350 * 1024,
+          maxInitialRequests: 8,
+          maxAsyncRequests: 12,
           cacheGroups: {
-            vendors: { name: "chunk-vendors", test: /[\\/]node_modules[\\/]/, priority: -10, chunks: "initial" },
-            common: { name: "chunk-common", minChunks: 2, priority: -20, chunks: "initial", reuseExistingChunk: true },
+            vendors: {
+              test: /[\\/]node_modules[\\/]/,
+              priority: -10,
+              chunks: "all",
+              reuseExistingChunk: true,
+            },
+            common: {
+              minChunks: 2,
+              priority: -20,
+              chunks: "all",
+              reuseExistingChunk: true,
+            },
           },
         },
         minimize: true,
@@ -111,6 +126,13 @@ module.exports = defineConfig({
   },
 
   chainWebpack: (config) => {
+    // 关闭预取和预加载，避免首页启动阶段并发拉取过多异步 chunk
+    ["prefetch", "preload", "prefetch-index", "preload-index"].forEach((name) => {
+      if (config.plugins.has(name)) {
+        config.plugins.delete(name);
+      }
+    });
+
     if (isProd) {
       const pluginName = "html-index";
       config.plugin(pluginName).tap((args) => {

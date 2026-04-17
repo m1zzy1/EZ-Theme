@@ -23,7 +23,7 @@ export const config  = {
         urlMode: 'static',
       
         // 是否展示后端联通性检测
-        showCheckBackend: false,
+        showCheckBackend: true,
       
         // 静态URL模式下的基础URL (urlMode = 'static'时使用)
         // 支持字符串形式(单个API地址)或数组形式(多个备选API地址)
@@ -66,13 +66,13 @@ export const config  = {
 
     // ====================  网站基础配置  ====================
     SITE_CONFIG: {
-        siteName: 'EZ THEME',
-        siteDescription: 'EZ UI',
+        siteName: 'SORORAIN',
+        siteDescription: '空之雨 · 来自天空的幻想之云',
         // copyright会自动使用当前年份
-        copyright: `© ${new Date().getFullYear()} EZ THEME. All Rights Reserved.`,
+        copyright: `© ${new Date().getFullYear()} SORORAIN. All Rights Reserved.`,
 
         // 是否显示标题中的网站Logo (true=显示, false=隐藏)
-        showLogo: true,
+        showLogo: false,
 
         // Landing页面多语言标语
         landingText: {
@@ -101,10 +101,19 @@ export const config  = {
         defaultTheme: 'light',
 
         // 主题色 (16进制颜色值)
-        primaryColor: '#355cc2',
+        primaryColor: '#2ab7ca',
 
         // 是否启用落地页 (true=启用, false=禁用)
         enableLandingPage: true // 默认启用
+    },
+
+    // 主站背景效果配置（登录后页面）
+    MAIN_BACKGROUND_CONFIG: {
+        // 可选值: 'none' | 'light' | 'full'
+        // none: 纯净背景（性能最佳）
+        // light: 轻量渐变背景（推荐）
+        // full: 强化渐变背景（视觉更明显）
+        mode: 'light'
     },
 
     // 认证页面功能配置
@@ -143,14 +152,14 @@ export const config  = {
     // 认证页面布局配置
     AUTH_LAYOUT_CONFIG: {
         // 布局类型: 'center' 为居中卡片布局, 'split' 为左右分栏布局
-        layoutType: 'center',
+        layoutType: 'split',
 
         // 左右分栏布局配置 (仅当 layoutType 为 'split' 时生效)
         splitLayout: {
             // 左侧区域内容配置
             leftContent: {
                 // 左侧背景图片URL或路径 (如不设置则不设置图片背景)
-                backgroundImage: 'https://www.loliapi.com/acg',
+                backgroundImage: './images/background.jpg',
 
                 // 左上角网站名称配置
                 siteName: {
@@ -174,7 +183,7 @@ export const config  = {
     // 商店页面配置
     SHOP_CONFIG: {
         // 是否在商店导航上显示热销标记
-        showHotSaleBadge: false,
+        showHotSaleBadge: true,
 
         // 是否显示套餐特性卡片 (true=显示, false=隐藏)
         showPlanFeatureCards: true, // 默认显示
@@ -205,7 +214,7 @@ export const config  = {
         // 商店弹窗配置
         popup: {
             // 是否启用弹窗
-            enabled: true,
+            enabled: false,
 
             // 弹窗标题
             title: "用户须知",
@@ -230,10 +239,10 @@ export const config  = {
     // 仪表盘页面配置
     DASHBOARD_CONFIG: {
         // 是否在欢迎卡片中显示用户邮箱 (true=显示, false=隐藏)
-        showUserEmail: false,
+        showUserEmail: true,
 
         // 是否为导入订阅按钮添加高光效果和填充底色 (true=添加效果, false=不添加效果)
-        importButtonHighlightBtnbgcolor: false,
+        importButtonHighlightBtnbgcolor: true,
 
         // ===============================
 
@@ -241,7 +250,7 @@ export const config  = {
         enableResetTraffic: true,
 
         // 重置流量按钮显示条件 ('always'=始终显示, 'low'=流量低于阈值时显示, 'depleted'=流量耗尽时显示)
-        resetTrafficDisplayMode: 'low',
+        resetTrafficDisplayMode: 'always',
 
         // 低流量阈值百分比 (1-100)，当剩余流量百分比低于此值时触发低流量警告
         lowTrafficThreshold: 10,
@@ -271,22 +280,18 @@ export const config  = {
         // 整个下载卡片显示控制
         showDownloadCard: true,
 
-        // 平台显示控制 (true=显示, false=隐藏)
-        showIOS: true,
-        showAndroid: true,
-        showMacOS: true,
-        showWindows: true,
-        showLinux: true,
-        showOpenWrt: true,
+        // 官方客户端按钮配置
+        officialClient: {
+            enabled: true,
+            // 点击“官方客户端”按钮后打开的链接
+            downloadUrl: 'https://www.google.com'
+        },
 
-        // 客户端下载链接  //可以改成文档链接直接在新标签页打开
-        clientLinks: {
-            ios: 'https://apps.apple.com/app/xxx',
-            android: 'https://play.google.com/store/apps/xxx',
-            macos: 'https://github.com/xxx/releases/latest',
-            windows: 'https://github.com/xxx/releases/latest',
-            linux: 'https://github.com/xxx/releases/latest',
-            openwrt: 'https://github.com/xxx/releases/latest'
+        // 三方客户端按钮配置
+        thirdPartyClient: {
+            enabled: true,
+            // 点击“三方客户端”按钮后打开的链接
+            downloadUrl: 'https://github.com'
         },
 
         // 订阅导入客户端显示控制 部分面板不支持SingBox导入请您注意检查
@@ -335,7 +340,7 @@ export const config  = {
     // 用户中心页面配置
     PROFILE_CONFIG: {
         // 是否显示礼品卡兑换栏目 (true=显示, false=隐藏)
-        showGiftCardRedeem: false, // 只有Xiao-V2board支持礼品卡兑换
+        showGiftCardRedeem: true, // 只有Xiao-V2board支持礼品卡兑换
 
         // 是否显示最近登录设备栏目 (true=显示, false=隐藏)
         showRecentDevices: true
@@ -443,7 +448,7 @@ export const config  = {
     // 邀请页面配置
     INVITE_CONFIG: {
         // 是否在导航栏的邀请按钮上显示返利标记
-        showCommissionBadge: false,
+        showCommissionBadge: true,
 
         // 返佣记录每页显示数量（最小值为10，API限制每次请求最少需要返回10条记录）
         recordsPerPage: 10,
@@ -508,7 +513,7 @@ export const config  = {
     // 流量明细配置
     TRAFFICLOG_CONFIG: {
         // 是否启用流量明细页面 (true=启用, false=禁用)
-        enableTrafficLog: true, // 默认启用
+        enableTrafficLog: false, // 默认启用
 
         //是否启用流量明表格 (true=启用, false=禁用）
         showTrafficTable: true, // 默认启用
@@ -535,7 +540,7 @@ export const config  = {
     // 客服系统配置
     CUSTOMER_SERVICE_CONFIG: {
         // 是否启用客服系统
-        enabled: false,
+        enabled: true,
 
         // 客服系统类型: 'crisp' 或 'other'
         // 注意：当客服类型为crisp时，系统会自动向Crisp传递用户数据

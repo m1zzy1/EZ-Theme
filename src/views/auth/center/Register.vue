@@ -10,15 +10,7 @@
 
     <!-- 背景装饰 -->
 
-    <div class="background-decoration">
-
-      <div class="floating-ball ball-1"></div>
-
-      <div class="floating-ball ball-2"></div>
-
-      <div class="floating-ball ball-3"></div>
-
-    </div>
+    <div class="background-decoration auth-bg"></div>
 
 
 

@@ -117,54 +117,20 @@
   pointer-events: none;
 }
 
-.floating-ball {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.3;
-  mix-blend-mode: lighten;
-  
-  // iOS设备完全隐藏装饰球
+// 登录页背景：静态渐变（取代原浮球动画，消除 blur+mix-blend-mode 合成开销）
+.background-decoration.auth-bg {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(var(--theme-color-rgb), 0.14) 0, rgba(var(--theme-color-rgb), 0.05) 32%, transparent 56%),
+    radial-gradient(circle at 84% 34%, rgba(167, 71, 254, 0.10) 0, rgba(167, 71, 254, 0.04) 30%, transparent 52%),
+    radial-gradient(circle at 52% 88%, rgba(55, 222, 201, 0.09) 0, rgba(55, 222, 201, 0.03) 30%, transparent 52%);
+
+  @media (max-width: 1024px) {
+    background:
+      radial-gradient(circle at 12% 16%, rgba(var(--theme-color-rgb), 0.09) 0, rgba(var(--theme-color-rgb), 0.03) 28%, transparent 50%),
+      radial-gradient(circle at 82% 30%, rgba(167, 71, 254, 0.06) 0, rgba(167, 71, 254, 0.02) 26%, transparent 46%);
+  }
+
   @supports (-webkit-touch-callout: none) {
     display: none;
   }
-}
-
-.ball-1 {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle at 30% 30%, 
-    rgba(var(--theme-color-rgb), 0.4),
-    rgba(var(--theme-color-rgb), 0.1) 70%,
-    transparent
-  );
-  top: -10%;
-  left: -10%;
-  animation: floatingBall1 25s infinite ease-in-out;
-}
-
-.ball-2 {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle at 70% 70%, 
-    rgba(167, 71, 254, 0.35),
-    rgba(167, 71, 254, 0.08) 70%,
-    transparent
-  );
-  top: 40%;
-  right: -5%;
-  animation: floatingBall2 30s infinite ease-in-out;
-}
-
-.ball-3 {
-  width: 450px;
-  height: 450px;
-  background: radial-gradient(circle at 50% 50%, 
-    rgba(55, 222, 201, 0.3),
-    rgba(55, 222, 201, 0.05) 70%,
-    transparent
-  );
-  bottom: -10%;
-  left: 20%;
-  animation: floatingBall3 35s infinite ease-in-out;
 } 

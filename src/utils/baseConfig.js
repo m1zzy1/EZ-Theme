@@ -807,6 +807,9 @@ const DEFAULT_CUSTOMER_SERVICE_CONFIG = {
     // 客服系统类型: 'crisp' 或 'other'
     type: 'crisp',
 
+    // Crisp 网站ID（type='crisp' 时优先使用）
+    crispWebsiteId: '',
+
     // 客服系统HTML代码
     customHtml: '',
 

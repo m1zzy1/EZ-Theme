@@ -66,10 +66,10 @@ export const config  = {
 
     // ====================  网站基础配置  ====================
     SITE_CONFIG: {
-        siteName: 'SORORAIN',
+        siteName: 'Sororain',
         siteDescription: '空之雨 · 来自天空的幻想之云',
         // copyright会自动使用当前年份
-        copyright: `© ${new Date().getFullYear()} SORORAIN. All Rights Reserved.`,
+        copyright: `© ${new Date().getFullYear()} Sororain. All Rights Reserved.`,
 
         // 是否显示标题中的网站Logo (true=显示, false=隐藏)
         showLogo: false,
@@ -113,7 +113,7 @@ export const config  = {
         // none: 纯净背景（性能最佳）
         // light: 轻量渐变背景（推荐）
         // full: 强化渐变背景（视觉更明显）
-        mode: 'light'
+        mode: 'none'
     },
 
     // 认证页面功能配置
@@ -547,7 +547,11 @@ export const config  = {
         // 包括：用户邮箱、套餐名称、到期时间、可用流量、用户余额
         type: 'crisp',
 
-        // 客服系统JS代码，请将您的客服系统提供的嵌入代码粘贴在这里
+        // Crisp网站ID（当type为'crisp'时，填写这里即可）
+        // 在 Crisp 控制台 Website Settings 中获取
+        crispWebsiteId: '',
+
+        // 客服系统JS代码（仅当type为'other'时使用）
         customHtml: '',
 
         // 客服系统嵌入模式: 'popup'=弹出式页面, 'embed'=嵌入到每个页面
@@ -560,9 +564,9 @@ export const config  = {
 
         // 图标位置配置
         iconPosition: {
-            // 桌面版图标距离左下角的距离
+            // 桌面版图标距离右下角的距离
             desktop: {
-                left: '20px',
+                right: '20px',
                 bottom: '20px'
             },
             // 移动版图标距离右下角的距离
